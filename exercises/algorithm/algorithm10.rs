@@ -1,6 +1,6 @@
 /*
-	graph
-	This problem requires you to implement a basic graph functio
+    graph
+    This problem requires you to implement a basic graph function
 */
 // I AM NOT DONE
 
@@ -29,7 +29,20 @@ impl Graph for UndirectedGraph {
         &self.adjacency_table
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
-        //TODO
+        if !self.adjacency_table.contains_key(edge.0) {
+            self.adjacency_table.insert(edge.0.to_string(), Vec::new());
+        }
+        self.adjacency_table
+            .get_mut(edge.0)
+            .unwrap()
+            .push((edge.1.to_string(), edge.2));
+        if !self.adjacency_table.contains_key(edge.1) {
+            self.adjacency_table.insert(edge.1.to_string(), Vec::new());
+        }
+        self.adjacency_table
+            .get_mut(edge.1)
+            .unwrap()
+            .push((edge.0.to_string(), edge.2));
     }
 }
 pub trait Graph {
@@ -38,7 +51,7 @@ pub trait Graph {
     fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>;
     fn add_node(&mut self, node: &str) -> bool {
         //TODO
-		true
+        true
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
         //TODO
